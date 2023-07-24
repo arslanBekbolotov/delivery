@@ -1,26 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
+import {ChakraProvider} from "@chakra-ui/react";
+import Layout from "./components/Layout/Layout";
+import {Route, Routes} from "react-router-dom";
+import Home from "./containers/Home/Home";
+import AdminDishes from "./containers/adminDishes/adminDishes";
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <ChakraProvider>
+            <div className="App">
+                <Layout>
+                    <Routes>
+                        <Route path='/' element={<Home/>}/>
+                        <Route path='/admin/dishes' element={<AdminDishes/>}/>
+                    </Routes>
+                </Layout>
+            </div>
+        </ChakraProvider>
+    );
 }
 
 export default App;
