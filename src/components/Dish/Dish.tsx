@@ -18,7 +18,7 @@ const Dish:React.FC<Props> = ({dish}) => {
         >
             <Image
                 maxW={{ base: '100%', sm: '200px' }}
-                src={dish.src}
+                src={dish.imageUrl}
                 alt={dish.name}
             />
 

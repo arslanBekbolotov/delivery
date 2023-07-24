@@ -1,5 +1,8 @@
 export interface IDish{
-    src?:string;
+    id:string;
+    imageUrl?:string;
     name:string;
     price:string;
 }
+
+export type TDishMutation = Omit<IDish, 'id'>
