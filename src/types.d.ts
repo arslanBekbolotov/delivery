@@ -5,4 +5,8 @@ export interface IDish{
     price:string;
 }
 
-export type TDishMutation = Omit<IDish, 'id'>
+export type TDishMutation = Omit<IDish, 'id'>;
+
+export interface IApiDish {
+    [id:string]:TDishMutation;
+}

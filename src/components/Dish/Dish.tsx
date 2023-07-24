@@ -1,13 +1,24 @@
 import React from 'react';
 import {Button, Card, CardBody, CardFooter, Heading, Stack, Image, Text} from "@chakra-ui/react";
 import {IDish} from "../../types";
+import {useAppDispatch} from "../../app/hooks";
+import {useNavigate} from "react-router-dom";
+import {deleteDish, fetchDishes} from "../../store/adminThuck";
 
 interface Props{
     dish:IDish;
 }
 
 const Dish:React.FC<Props> = ({dish}) => {
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const dishName = dish.name.charAt(0).toUpperCase() + dish.name.slice(1);
+
+    const onClickDelete = async (id:string) =>{
+       await dispatch(deleteDish(id));
+       await dispatch(fetchDishes());
+    };
+
     return (
         <Card
             mb="6"
@@ -32,10 +43,10 @@ const Dish:React.FC<Props> = ({dish}) => {
                 </CardBody>
 
                 <CardFooter>
-                    <Button variant='solid' colorScheme='teal' mr="4">
+                    <Button variant='solid' colorScheme='teal' mr="4" onClick={()=>navigate(`/edit/${dish.id}`)}>
                         Edit
                     </Button>
-                    <Button variant='solid' colorScheme='red'>
+                    <Button variant='solid' colorScheme='red' onClick={()=>onClickDelete(dish.id)}>
                         Delete
                     </Button>
                 </CardFooter>

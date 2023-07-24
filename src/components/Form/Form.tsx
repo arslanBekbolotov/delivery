@@ -1,29 +1,37 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Box, Button, FormControl, FormLabel, Input} from "@chakra-ui/react";
-import {TDishMutation} from "../../types";
+import {IDish, TDishMutation} from "../../types";
 import {useNavigate} from "react-router-dom";
 
 interface Props{
     onSubmit:(dish:TDishMutation)=> void;
+    editDish?:IDish;
 }
 
-const Form:React.FC<Props> = ({onSubmit}) => {
+const Form:React.FC<Props> = ({onSubmit,editDish}) => {
     const navigate = useNavigate();
-    const [dish,setDish] = useState<TDishMutation>({
+    const initialState = editDish ? editDish : {
         name:'',
         price:'',
         imageUrl:'',
-    });
+    };
+
+
+    const [dish,setDish] = useState<TDishMutation>(initialState);
+
+    useEffect(()=>{
+        if(editDish) setDish(editDish);
+    },[editDish]);
 
     const onChange = (e:React.ChangeEvent<HTMLInputElement>)=> {
         const {name,value} = e.target;
         setDish(prevState => ({...prevState,[name]:value}));
     };
 
-    const handleSubmit = (e:React.FormEvent<HTMLFormElement>)=> {
+    const handleSubmit = async (e:React.FormEvent<HTMLFormElement>)=> {
         e.preventDefault();
 
-        onSubmit(dish);
+        await onSubmit(dish);
 
         navigate('/admin/dishes');
     };

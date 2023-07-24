@@ -1,12 +1,14 @@
 import React from 'react';
 import Form from "../../components/Form/Form";
 import {TDishMutation} from "../../types";
-import {axiosApi} from "../../axiosApi";
+import {useAppDispatch} from "../../app/hooks";
+import {addDish} from "../../store/adminThuck";
 
 const AddDish = () => {
+    const dispatch = useAppDispatch();
 
     const onSubmit = async(data:TDishMutation) => {
-        await axiosApi.post('dishes.json',data);
+       await dispatch(addDish(data));
     };
 
     return (

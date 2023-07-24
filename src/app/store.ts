@@ -1,8 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
+import {adminReducer} from "../store/adminSlice";
 
 
 export const store = configureStore({
-    reducer: {},
+    reducer: {
+        admin: adminReducer,
+    },
 })
 
 export type RootState = ReturnType<typeof store.getState>
