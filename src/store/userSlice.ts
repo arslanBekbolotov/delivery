@@ -1,5 +1,6 @@
 import {IDish} from "../types";
 import {createSlice} from "@reduxjs/toolkit";
+import {addOrder} from "./userThuck";
 
 interface UserState {
     dishes:IDish[];
@@ -35,6 +36,18 @@ export const userSlice = createSlice({
             }, 0);
         }
     },
+    extraReducers:(builder)=>{
+        builder.addCase(addOrder.pending,(state)=>{
+            state.loading = true;
+        });
+        builder.addCase(addOrder.fulfilled,(state)=>{
+            state.loading = false;
+        });
+        builder.addCase(addOrder.rejected,(state)=>{
+            state.loading = false;
+            state.error = true;
+        });
+    }
 
 });
 

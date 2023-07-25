@@ -5,10 +5,9 @@ import {IDish} from "../../types";
 interface Props{
     dish:IDish;
     onClickAdd: React.MouseEventHandler;
-    count:number;
 }
 
-const UserDish:React.FC<Props> = ({dish,onClickAdd,count}) => {
+const UserDish:React.FC<Props> = ({dish,onClickAdd}) => {
     const dishName = dish.name.charAt(0).toUpperCase() + dish.name.slice(1);
 
     return (
@@ -36,7 +35,7 @@ const UserDish:React.FC<Props> = ({dish,onClickAdd,count}) => {
                     </Text>
 
                     <Button colorScheme="teal" shadow="md" ml="30%" onClick={onClickAdd}>
-                        Add to cart <span style={{padding:'0 5px', marginLeft:"5px", background:'#fff', borderRadius:'50%', color:'#000'}}>{count}</span>
+                        Add to cart
                     </Button>
 
                 </CardBody>

@@ -13,16 +13,6 @@ const Home = () => {
         dispatch(fetchDishes());
     },[dispatch]);
 
-    const findCount = (id: string) => {
-        const findId = dishes.find((item) => item.id === id);
-
-        if (findId) {
-            console.log('work');
-            return findId.count;
-        }
-
-        return 0;
-    };
 
     const onClickAdd = (dish: IDish) => {
         dispatch(addUserDish(dish));
@@ -31,7 +21,7 @@ const Home = () => {
     return (
         <div>
             {dishes && dishes.map(dish=>(
-                <UserDish key={dish.id} dish={dish} count={findCount(dish.id)} onClickAdd={()=>onClickAdd(dish)}/>
+                <UserDish key={dish.id} dish={dish} onClickAdd={()=>onClickAdd(dish)}/>
             ))}
         </div>
     );
