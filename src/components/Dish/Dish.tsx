@@ -43,7 +43,7 @@ const Dish:React.FC<Props> = ({dish}) => {
                 </CardBody>
 
                 <CardFooter>
-                    <Button variant='solid' colorScheme='teal' mr="4" onClick={()=>navigate(`/edit/${dish.id}`)}>
+                    <Button variant='solid' colorScheme='teal' mr="4" onClick={()=>navigate(`/admin/edit/${dish.id}`)}>
                         Edit
                     </Button>
                     <Button variant='solid' colorScheme='red' onClick={()=>onClickDelete(dish.id)}>

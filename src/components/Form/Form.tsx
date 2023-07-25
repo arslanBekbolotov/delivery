@@ -14,6 +14,7 @@ const Form:React.FC<Props> = ({onSubmit,editDish}) => {
         name:'',
         price:'',
         imageUrl:'',
+        count:0,
     };
 
 

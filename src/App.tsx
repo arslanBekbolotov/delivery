@@ -16,8 +16,8 @@ function App() {
                     <Routes>
                         <Route path='/' element={<Home/>}/>
                         <Route path='/admin/dishes' element={<AdminDishes/>}/>
-                        <Route path={'/addDish'} element={<AddDish/>}/>
-                        <Route path={'/edit/:id'} element={<EditDish/>}/>
+                        <Route path='/admin/addDish' element={<AddDish/>}/>
+                        <Route path='/admin/edit/:id' element={<EditDish/>}/>
                     </Routes>
                 </Layout>
             </div>

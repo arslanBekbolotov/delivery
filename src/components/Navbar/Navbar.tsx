@@ -1,26 +1,51 @@
 import React from 'react';
-import {Box, Breadcrumb, BreadcrumbItem, Flex, Link} from "@chakra-ui/react";
+import cart from "../../assets/icons8-cart-60.png";
+import {Box, Breadcrumb, BreadcrumbItem, Button, Flex,Text, Image} from "@chakra-ui/react";
+import {Link, useLocation} from "react-router-dom";
+import { useAppSelector } from '../../app/hooks';
 
 const Navbar = () => {
+    const {pathname} = useLocation();
+    const { dishes, totalPrice } = useAppSelector((state) => state.user);
+    const productsCount = dishes.reduce((acc, value) => {
+        return acc + value.count;
+    }, 0);
+
     return (
         <Flex justify="space-between" bg="#fff" p="4" boxShadow="lg" align="center" rounded='md' mb="6">
             <Box fontSize="25">
-                <Link>
-                    Turtle Pizza
-                </Link>
+                {pathname.includes('admin') ?
+                    <Link to={'/admin/dishes'}>
+                        Turtle Pizza Admin
+                    </Link> :
+                    <Link to={'/'}>
+                        Turtle Pizza
+                    </Link>
+                }
             </Box>
-            <Breadcrumb>
+            {pathname.includes('admin') ? <Breadcrumb>
                 <BreadcrumbItem fontSize="20">
-                    <Link>
+                    <Link to={'/admin/dishes'}>
                         Dishes
                     </Link>
                 </BreadcrumbItem>
                 <BreadcrumbItem fontSize="20">
-                    <Link>
+                    <Link to={'/admin/order'}>
                         Order
                     </Link>
                 </BreadcrumbItem>
-            </Breadcrumb>
+            </Breadcrumb> :
+                <Button colorScheme="orange" size="lg" borderRadius="3xl">
+                    <Link to={"/cart"} className="button--cart">
+                        <Flex align="center" >
+                            {totalPrice} <Text fontSize="12">kgz</Text>
+                            <Text height="10" w='0.5' bg="#fff" mx="2"></Text>
+                            <Image width="6" height="auto" src={cart} alt="cart"/>
+                            {productsCount}
+                        </Flex>
+                    </Link>
+                </Button>
+            }
         </Flex>
     );
 };

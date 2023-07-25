@@ -17,13 +17,13 @@ const AdminDishes = () => {
         <Box>
             <Flex align="center" justify="space-between" mb="6">
                 <Box fontSize="25px">Dishes</Box>
-                <Link to="/addDish">
+                <Link to="/admin/addDish">
                     <Button colorScheme='teal' size='md'>Add new dishes</Button>
                 </Link>
             </Flex>
             <Box>
                 {dishes && dishes.map(dish=>(
-                    <Dish dish={dish}/>
+                    <Dish key={dish.id} dish={dish}/>
                 ))}
             </Box>
         </Box>
