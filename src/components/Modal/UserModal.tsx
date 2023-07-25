@@ -25,6 +25,7 @@ const UserModal:React.FC<Props> = ({isOpen,onClose}) => {
     const onSubmit = async (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         await dispatch(addOrder(dishes));
+        onClose();
     };
 
     return (

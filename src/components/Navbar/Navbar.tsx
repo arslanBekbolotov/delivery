@@ -32,8 +32,8 @@ const Navbar = () => {
                     </Link>
                 </BreadcrumbItem>
                 <BreadcrumbItem fontSize="20">
-                    <Link to={'/admin/order'}>
-                        Order
+                    <Link to={'/admin/orders'}>
+                        Orders
                     </Link>
                 </BreadcrumbItem>
             </Breadcrumb> :
