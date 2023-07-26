@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, FormControl, FormLabel, Input} from "@chakra-ui/react";
+import {Box, Button, FormControl, FormLabel, Input,Stack} from "@chakra-ui/react";
 import {IDish, TDishMutation} from "../../types";
 import {useNavigate} from "react-router-dom";
 
 interface Props{
     onSubmit:(dish:TDishMutation)=> void;
     editDish?:IDish;
+    isLoading:boolean;
 }
 
-const Form:React.FC<Props> = ({onSubmit,editDish}) => {
+const Form:React.FC<Props> = ({onSubmit,editDish,isLoading}) => {
     const navigate = useNavigate();
     const initialState = editDish ? editDish : {
         name:'',
@@ -16,7 +17,6 @@ const Form:React.FC<Props> = ({onSubmit,editDish}) => {
         imageUrl:'',
         count:0,
     };
-
 
     const [dish,setDish] = useState<TDishMutation>(initialState);
 
@@ -73,8 +73,18 @@ const Form:React.FC<Props> = ({onSubmit,editDish}) => {
                         onChange={onChange}
                     />
                 </FormControl>
-
-                <Button type="submit" display="block" ml="auto" colorScheme="teal">Add</Button>
+                <Stack direction='row' spacing={4} align='center'>
+                    <Button
+                        isLoading={isLoading}
+                        loadingText='Loading'
+                        colorScheme='teal'
+                        variant='outline'
+                        spinnerPlacement='start'
+                        type="submit"
+                    >
+                        Add
+                    </Button>
+                </Stack>
             </Box>
         </form>
     );

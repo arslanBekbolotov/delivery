@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 import {fetchOrders} from "./ordersThuck";
 import {RootState} from "../app/store";
 import {IApiOrdersResponse} from "../types";
@@ -25,6 +25,7 @@ export const ordersSlice = createSlice({
         });
         builder.addCase(fetchOrders.fulfilled, (state,{payload:orders}) => {
             state.loading = false;
+            console.log(orders);
             if(orders) state.orders = orders;
         });
         builder.addCase(fetchOrders.rejected, (state) => {
@@ -34,4 +35,5 @@ export const ordersSlice = createSlice({
     },
 });
 export const selectOrders = (state:RootState)=>state.ordersList.orders;
+export const selectLoading = (state:RootState)=>state.ordersList.loading;
 export const orderReducers = ordersSlice.reducer;

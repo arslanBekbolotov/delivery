@@ -1,12 +1,14 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {fetchOrders} from "../../store/ordersThuck";
-import {selectOrders} from "../../store/ordersSlice";
+import {selectLoading, selectOrders} from "../../store/ordersSlice";
 import AdminOrderItems from "../../components/AdminOrderItems/AdminOrderItems";
+import CircularProgress from "../../components/CircularProgress/CircularProgress";
 
 const AdminOrders = () => {
     const dispatch = useAppDispatch();
     const orders = useAppSelector(selectOrders);
+    const loading = useAppSelector(selectLoading);
 
     useEffect(()=>{
         dispatch(fetchOrders());
@@ -14,9 +16,11 @@ const AdminOrders = () => {
 
     return (
         <div>
-            {orders  && orders.map((ordersItem,index)=>(
-                <AdminOrderItems key={Math.random()} orders={ordersItem} index={index}/>
-            ))}
+            {loading ? <CircularProgress/> : <>
+                {orders  && orders.map((ordersItem,index)=>(
+                    <AdminOrderItems key={Math.random()} orders={ordersItem} index={index}/>
+                ))}
+            </>}
         </div>
     );
 };

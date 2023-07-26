@@ -1,19 +1,23 @@
 import {IDish} from "../types";
 import {createSlice} from "@reduxjs/toolkit";
 import {addOrder} from "./userThuck";
+import {RootState} from "../app/store";
 
 interface UserState {
     dishes:IDish[];
     totalPrice:number;
     loading:boolean;
     error:boolean;
+    isVisible:boolean;
 }
+
 
 const initialState:UserState = {
     dishes:[],
     totalPrice:0,
     loading:false,
     error:false,
+    isVisible:false,
 }
 
 export const userSlice = createSlice({
@@ -34,6 +38,43 @@ export const userSlice = createSlice({
             state.totalPrice = state.dishes.reduce((acc, value) => {
                 return acc + (+value.price) * value.count;
             }, 0);
+        },
+        deleteUserDish(state,{payload:id}){
+            state.dishes = state.dishes.filter(dish=>dish.id !== id);
+            state.totalPrice = state.dishes.reduce((acc, value) => {
+                return acc + (+value.price) * value.count;
+            }, 0);
+        },
+        increase(state,{payload:id}){
+            const findItem = state.dishes.find(
+                (item) => item.id === id,
+            );
+
+            if(findItem){
+                findItem.count++;
+            }
+            state.totalPrice = state.dishes.reduce((acc, value) => {
+                return acc + (+value.price) * value.count;
+            }, 0);
+        },
+        decrease(state,{payload:id}){
+            const findItem = state.dishes.find(
+                (item) => item.id === id,
+            );
+
+            if(findItem && findItem.count){
+               findItem.count--;
+            }
+
+            state.totalPrice = state.dishes.reduce((acc, value) => {
+                return acc + (+value.price) * value.count;
+            }, 0);
+        },
+        onOpen(state){
+            state.isVisible = true;
+        },
+        onClose(state){
+            state.isVisible = false;
         }
     },
     extraReducers:(builder)=>{
@@ -51,5 +92,10 @@ export const userSlice = createSlice({
 
 });
 
-export const {addUserDish} = userSlice.actions;
+export const selectVisible = (state:RootState)=>state.user.isVisible;
+export const {addUserDish,
+    deleteUserDish,
+    increase,
+    decrease,
+    onOpen,onClose} = userSlice.actions;
 export const userReducers = userSlice.reducer;

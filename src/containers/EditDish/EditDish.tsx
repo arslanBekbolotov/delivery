@@ -5,10 +5,14 @@ import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {editDish, fetchOneDish} from "../../store/adminThuck";
 import Form from "../../components/Form/Form";
 import {selectDish} from "../../store/adminSlice";
+import CircularProgress from "../../components/CircularProgress/CircularProgress";
+
 
 const EditDish = () => {
     const {id} = useParams() as {id:string};
     const dispatch = useAppDispatch();
+    const fetchLoading = useAppSelector(state=> state.admin.fetchLoading);
+    const editLoading = useAppSelector(state=> state.admin.editLoading);
     const dish = useAppSelector(selectDish);
 
     const onSubmit = async(data:TDishMutation)=> {
@@ -21,7 +25,9 @@ const EditDish = () => {
 
     return (
         <div>
-            {dish && <Form onSubmit={onSubmit} editDish={dish}/>}
+            {fetchLoading ? <CircularProgress/> : <>
+                {dish && <Form onSubmit={onSubmit} editDish={dish} isLoading={editLoading}/>}
+            </>}
         </div>
     );
 };

@@ -4,10 +4,11 @@ import {Link} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {fetchDishes} from "../../store/adminThuck";
 import Dish from "../../components/Dish/Dish";
+import CircularProgress from "../../components/CircularProgress/CircularProgress";
 
 const AdminDishes = () => {
     const dispatch = useAppDispatch();
-    const {dishes,loading} = useAppSelector(state => state.admin);
+    const {dishes,fetchLoading} = useAppSelector(state => state.admin);
 
     useEffect(()=>{
         dispatch(fetchDishes());
@@ -22,9 +23,11 @@ const AdminDishes = () => {
                 </Link>
             </Flex>
             <Box>
-                {dishes && dishes.map(dish=>(
-                    <Dish key={dish.id} dish={dish}/>
-                ))}
+                {fetchLoading ? <CircularProgress/> : <>
+                    {dishes && dishes.map(dish=>(
+                        <Dish key={dish.id} dish={dish}/>
+                    ))}
+                </>}
             </Box>
         </Box>
     );

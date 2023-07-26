@@ -12,7 +12,7 @@ import {
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import OrderItem from "../OrderItem/OrderItem";
 import {addOrder} from "../../store/userThuck";
-
+import {onOpen} from "../../store/userSlice";
 
 interface Props{
     isOpen:boolean;
@@ -22,13 +22,20 @@ interface Props{
 const UserModal:React.FC<Props> = ({isOpen,onClose}) => {
     const {dishes, loading, totalPrice} = useAppSelector(state => state.user);
     const dispatch = useAppDispatch();
+
     const onSubmit = async (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
-        await dispatch(addOrder(dishes));
+        if(totalPrice > 150){
+            await dispatch(addOrder(dishes))
+        } else{
+
+        }
         onClose();
+        dispatch(onOpen());
     };
 
     return (
+        <>
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent maxW="700">
@@ -54,14 +61,24 @@ const UserModal:React.FC<Props> = ({isOpen,onClose}) => {
 
                     <ModalFooter>
                         <form onSubmit={(e)=>onSubmit(e)}>
-                            <Button colorScheme='red' mr={3} onClick={onClose}>
+                            <Button colorScheme='red' mr={3} onClick={onClose} variant='outline'>
                                 Cancel
                             </Button>
-                            <Button colorScheme="teal" type="submit">Order</Button>
+                            <Button
+                                isLoading={loading}
+                                loadingText='Loading'
+                                colorScheme='teal'
+                                variant='outline'
+                                spinnerPlacement='start'
+                                type="submit"
+                            >
+                                Add
+                            </Button>
                         </form>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
+        </>
     );
 };
 

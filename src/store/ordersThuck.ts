@@ -6,6 +6,7 @@ export const fetchOrders = createAsyncThunk<IApiOrdersResponse[] | null,undefine
     'orders/fetch',
     async () => {
         const { data } = await axiosApi<IOrdersApi | null>('orders.json');
+
         if (data) {
             const orders = [];
             const newOrders = Object.keys(data).map(key => ({ ...data[key] }));
