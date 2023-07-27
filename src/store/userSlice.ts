@@ -9,6 +9,7 @@ interface UserState {
     loading:boolean;
     error:boolean;
     isVisible:boolean;
+    alertStatus: "loading" | "error" | "info" | "warning" | "success" | undefined;
 }
 
 
@@ -18,6 +19,7 @@ const initialState:UserState = {
     loading:false,
     error:false,
     isVisible:false,
+    alertStatus:'success',
 }
 
 export const userSlice = createSlice({
@@ -75,7 +77,10 @@ export const userSlice = createSlice({
         },
         onClose(state){
             state.isVisible = false;
-        }
+        },
+        changeStatus(state,{payload:status}){
+            state.alertStatus = status;
+        },
     },
     extraReducers:(builder)=>{
         builder.addCase(addOrder.pending,(state)=>{
@@ -93,9 +98,11 @@ export const userSlice = createSlice({
 });
 
 export const selectVisible = (state:RootState)=>state.user.isVisible;
+export const selectStatus = (state:RootState)=>state.user.alertStatus;
 export const {addUserDish,
     deleteUserDish,
     increase,
     decrease,
-    onOpen,onClose} = userSlice.actions;
+    onOpen,onClose,
+changeStatus} = userSlice.actions;
 export const userReducers = userSlice.reducer;

@@ -6,25 +6,26 @@ import {useAppDispatch} from "../../app/hooks";
 interface Props{
     orders:IApiOrdersResponse;
     index:number;
+    handleComplete:React.MouseEventHandler;
 }
 
-const AdminOrderItems:React.FC<Props> = ({orders,index}) => {
-    const dispatch = useAppDispatch();
+const AdminOrderItems:React.FC<Props> = ({orders,handleComplete}) => {
     const totalPrice = orders.reduce((acc, value) => {
-        if(value){
+        if(value && "price" in value){
             return acc + (+value.price) * value.count;
         }
 
         return 0;
     }, 0);
 
+
     return (
         <Card mb="3" shadow="lg">
             <CardBody fontSize="20">
-                <Flex align="center">
+                <Flex align="center" flexWrap="wrap">
                     <Box flexGrow="1">
                         {orders && orders.map(order=>{
-                            if(order){
+                            if(order && "name" in order && order.name){
                                 const dishName = order.name.charAt(0).toUpperCase() + order.name.slice(1);
 
                                 return (<Box key={order.id} mb="3">
@@ -51,7 +52,7 @@ const AdminOrderItems:React.FC<Props> = ({orders,index}) => {
                         <Flex flexDirection="column" ml="10" mr="10">
                             <Text mb="3"> Total:{totalPrice + 150}kgz</Text>
                             <Divider/>
-                            <Button mb="3" colorScheme='teal' variant='link' >
+                            <Button mb="3" colorScheme='teal' variant='link' onClick={handleComplete}>
                                 Complete order
                             </Button>
                         </Flex>

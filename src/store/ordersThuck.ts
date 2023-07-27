@@ -1,6 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {axiosApi} from "../axiosApi";
-import {IApiOrdersResponse, IOrdersApi, TDishMutation} from "../types";
+import {IApiOrdersResponse, IOrdersApi, TDishMutation,} from "../types";
 
 export const fetchOrders = createAsyncThunk<IApiOrdersResponse[] | null,undefined>(
     'orders/fetch',
@@ -10,6 +10,7 @@ export const fetchOrders = createAsyncThunk<IApiOrdersResponse[] | null,undefine
         if (data) {
             const orders = [];
             const newOrders = Object.keys(data).map(key => ({ ...data[key] }));
+            const idList = Object.keys(data)
 
             for (let item of newOrders) {
                 const newItem = Object.keys(item).map(key => ({ count: item[key], id: key }));
@@ -17,13 +18,14 @@ export const fetchOrders = createAsyncThunk<IApiOrdersResponse[] | null,undefine
             }
 
             return await Promise.all(
-                orders.map(async (orderItem) => {
+                orders.map(async (orderItem, index) => {
+                    orderItem.push({id: idList[index], count: 0});
                     return Promise.all(orderItem.map(async (order) => {
                         const {data} = await axiosApi<TDishMutation | null>(`dishes/${order.id}.json`);
-                        return data ? {...data, id: order.id, count: order.count} : null;
+                        return data ? {...data, id: order.id, count: order.count} : order;
                     }));
                 })
-            );
+            )
         }
 
         return null;

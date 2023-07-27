@@ -21,6 +21,7 @@ const Dish:React.FC<Props> = ({dish}) => {
 
     return (
         <Card
+            flexWrap="wrap"
             mb="6"
             shadow="lg"
             direction={{ base: 'column', sm: 'row' }}

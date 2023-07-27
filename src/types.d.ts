@@ -8,8 +8,6 @@ export interface IDish{
 
 export type TDishMutation = Omit<IDish, 'id'>;
 
-export type TOrder = Omit<IDish, 'imageUrl'>;
-
 export interface IApiDish {
     [id:string]:TDishMutation;
 }
@@ -22,4 +20,9 @@ export interface IOrdersApi{
     [id:string]:IOrderApiItem;
 }
 
-interface IApiOrdersResponse extends Array<IDish | null> {}
+export interface IOrderId{
+    id:string;
+    count:number
+}
+
+interface IApiOrdersResponse extends Array<IDish| IOrderId  | null> {}

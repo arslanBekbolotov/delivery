@@ -12,7 +12,7 @@ import {
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import OrderItem from "../OrderItem/OrderItem";
 import {addOrder} from "../../store/userThuck";
-import {onOpen} from "../../store/userSlice";
+import {changeStatus, onOpen} from "../../store/userSlice";
 
 interface Props{
     isOpen:boolean;
@@ -27,8 +27,9 @@ const UserModal:React.FC<Props> = ({isOpen,onClose}) => {
         e.preventDefault();
         if(totalPrice > 150){
             await dispatch(addOrder(dishes))
+            dispatch(changeStatus('success'))
         } else{
-
+            dispatch(changeStatus('error'));
         }
         onClose();
         dispatch(onOpen());

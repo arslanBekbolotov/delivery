@@ -16,7 +16,7 @@ const OrderItem:React.FC<Props> = ({dish}) => {
     return (
         <Card mb="3" shadow="lg">
             <CardBody>
-                <Flex align="center">
+                <Flex align="center" flexWrap="wrap">
                     <Text>{dishName}</Text>
                     <Flex ml="auto" align="center">
                         <Button onClick={()=>dispatch(decrease(dish.id))}>-</Button>

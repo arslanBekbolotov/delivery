@@ -13,7 +13,8 @@ const CustomAlert:React.FC<Props> = ({onClose,alertStatus}) => {
             <Box>
                 <AlertTitle>{alertStatus}</AlertTitle>
                 <AlertDescription>
-                    {alertStatus ? 'your order was successfully accepted' : ''}
+                    {alertStatus === 'success' ? 'your order was successfully accepted ✅' :
+                        'your order has not been accepted, you have not added anything to the cart 😢'}
                 </AlertDescription>
             </Box>
             <CloseButton
