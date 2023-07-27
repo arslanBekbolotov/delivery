@@ -1,28 +1,28 @@
-export interface IDish{
-    id:string;
-    imageUrl:string;
-    name:string;
-    price:string;
-    count:number;
+export interface IDish {
+  id: string;
+  imageUrl: string;
+  name: string;
+  price: string;
+  count: number;
 }
 
-export type TDishMutation = Omit<IDish, 'id'>;
+export type TDishMutation = Omit<IDish, "id">;
 
 export interface IApiDish {
-    [id:string]:TDishMutation;
+  [id: string]: TDishMutation;
 }
 
 export interface IOrderApiItem {
-    [id:string]:number;
+  [id: string]: number;
 }
 
-export interface IOrdersApi{
-    [id:string]:IOrderApiItem;
+export interface IOrdersApi {
+  [id: string]: IOrderApiItem;
 }
 
-export interface IOrderId{
-    id:string;
-    count:number
+export interface IOrderId {
+  id: string;
+  count: number;
 }
 
-interface IApiOrdersResponse extends Array<IDish| IOrderId  | null> {}
+interface IApiOrdersResponse extends Array<IDish | IOrderId | null> {}
