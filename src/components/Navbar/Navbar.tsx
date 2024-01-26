@@ -49,19 +49,34 @@ const Navbar = () => {
           </BreadcrumbItem>
         </Breadcrumb>
       ) : (
-        <Button
-          colorScheme="orange"
-          size="lg"
-          borderRadius="3xl"
-          onClick={onOpen}
-        >
-          <Flex align="center">
-            {totalPrice} <Text fontSize="12">kgz</Text>
-            <Text height="10" w="0.5" bg="#fff" mx="2"></Text>
-            <Image width="6" height="auto" src={cart} alt="cart" />
-            {productsCount}
-          </Flex>
-        </Button>
+          <div>
+            <Button
+              colorScheme="orange"
+              size="lg"
+              borderRadius="3xl"
+              onClick={onOpen}
+            >
+              <Flex align="center">
+                {totalPrice} <Text fontSize="12">kgz</Text>
+                <Text height="10" w="0.5" bg="#fff" mx="2"></Text>
+                <Image width="6" height="auto" src={cart} alt="cart" />
+                {productsCount}
+              </Flex>
+            </Button>
+            <Link to={'/admin/dishes'}>
+                <Button
+                    colorScheme="green"
+                    size="lg"
+                    borderRadius="3xl"
+                    style={{position:'absolute',right:"5%", top:'18%',zIndex:'3'}}
+                >
+                  <Flex align="center">
+                    Link to Admin Page
+                  </Flex>
+                </Button>
+
+          </Link>
+          </div>
       )}
       <UserModal onClose={onClose} isOpen={isOpen} />
     </Flex>
