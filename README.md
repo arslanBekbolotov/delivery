@@ -1,6 +1,3 @@
-
-Russian:
-
 Установка:
 
 npm install
@@ -19,9 +16,6 @@ npm run build
 Простое веб-приложение для заказа еды. Разработано с использованием React и TypeScript на фронтенде, с использованием Chakra UI для стилей. Redux Toolkit используется для управления состоянием. Для взаимодействия с бэкендом используется библиотека Axios. В приложении реализована навигация с использованием React Router.
 
 Демо: https://delivery-app-dun.vercel.app/
-
-
-English:
 
 Installation:
 
